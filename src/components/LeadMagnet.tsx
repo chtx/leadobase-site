@@ -1,77 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Helmet } from 'react-helmet-async'; // Import Helmet - it's the library I use for embedding the Mailer Lite form. 
+// The issue was that if I just include the MailerLite JS script directly in the <head>, the components weren't loade yet when the script run
+// This library injects script into the head when loading this component, therefore the form div is present for the script to act on. 
 import leadMagImage from '../assets/mag.png';
 
-const LeadMagnet: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: ''
-  });
+// You might not need the global declaration anymore if Helmet handles the script context better,
+// but it doesn't hurt to keep it for clarity if you intend to reference window.ml elsewhere.
+declare global {
+  interface Window {
+    ml: any;
+  }
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-  };
+const LeadMagnet: React.FC = () => {
+  const mailerLiteAccountID = '1534063'; // Your actual account ID
 
   return (
-    <section className="py-16 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="lg:w-1/2">
-            <img
-              src={leadMagImage}
-              alt="Cold Email Deliverability Guide Cover"
-              className="w-full h-auto rounded-lg shadow-xl"
-              style={{ maxHeight: '678px', objectFit: 'cover' }}
-            />
-          </div>
-          <div className="lg:w-1/2">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              The Ultimate Cold Email Deliverability Guide for 2025
-            </h2>
-            <p className="text-lg text-gray-700 mb-8">
-              This guide reveals advanced strategies and tactics for 2025 to ensure your cold emails land in your prospects' inboxes. Enter your email to get the guide.
-            </p>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
-                  placeholder="Your name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
-                  placeholder="you@company.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-purple-600 text-white px-6 py-3 rounded-md font-medium hover:bg-purple-700 transition-colors duration-200"
-              >
-                Get the Guide
-              </button>
-            </form>
+    <> {/* Use a Fragment or a parent div if Helmet is the only top-level addition */}
+      <Helmet>
+        <script>
+          {`
+            (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+            .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+            n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+            (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+            ml('account', '${mailerLiteAccountID}');
+          `}
+        </script>
+      </Helmet>
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            <div className="lg:w-1/2">
+              <img
+                src={leadMagImage}
+                alt="Cold Email Deliverability Guide Cover"
+                className="w-full h-auto rounded-lg shadow-xl"
+                style={{ maxHeight: '678px', objectFit: 'cover' }}
+              />
+            </div>
+            <div className="lg:w-1/2">
+              {/* This is where MailerLite should inject the form */}
+              <div className="ml-embedded" data-form="RE8yfX"></div>
+
+              {/* ... your commented out form ... */}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

@@ -99,11 +99,11 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
             <ul className="space-y-2">
               <li className="text-gray-400">
-                123 Lead Generation St.<br />
-                San Francisco, CA 94107
+                Al. Jerozolimskie 181/5<br />
+                02-222 Warsaw, Poland
               </li>
               <li className="text-gray-400">
-                (123) 456-7890
+                +1 (604) 923-1571
               </li>
               <li className="text-gray-400">
                 info@leadobase.com

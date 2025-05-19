@@ -16,9 +16,9 @@ const AboutUs: React.FC = () => {
           {/* Column 1: */}
           <div className="md:w-1/2">
             <p className="text-lg text-gray-700 leading-relaxed">
-              Leadobase is a B2B lead generation agency. We helped 68 clients generate over $12M in closed deals
-              in the past two years. We specialize in sustainable cold outreach strategies optimized to deliver
-              a consistent flow of qualified leads and drive stable growth for your business.
+              <span className='font-bold'>Leadobase</span> is a <span className='font-bold'>B2B lead generation</span> agency. We helped 68 clients generate over $12M in closed deals
+              in the past two years. We specialize in <span className='font-bold'>sustainable cold outreach</span> strategies optimized to deliver
+              a consistent flow of <span className='font-bold'>qualified leads</span> and drive stable growth for your business.
             </p>
           </div>
 
