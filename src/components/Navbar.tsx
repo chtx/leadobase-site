@@ -32,11 +32,12 @@ const Navbar: React.FC = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-    setIsOpen(false);
+    setIsOpen(false); // Close mobile menu after clicking a link
   };
 
   const handleGetStarted = () => {
     window.location.href = 'https://calendly.com/patrick-px/30min';
+    setIsOpen(false); // Also close mobile menu if this is clicked from there
   };
 
   return (
@@ -48,16 +49,20 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-  <div className="flex-shrink-0">
-    <a href="#" className="flex items-center">
-      <img
-        src={myLogo}
-        alt="Leadobase Logo" // Important for accessibility! Describe your logo.
-        className="h-12 w-auto" // ADJUSTABLE: See notes below
-      />
-    </a>
-  </div>
-</div>
+            <div className="flex-shrink-0">
+              <a href="#" className="flex items-center" onClick={(e) => {
+                e.preventDefault();
+                // Potentially scroll to top or handle as a home link
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}>
+                <img
+                  src={myLogo}
+                  alt="Leadobase Logo"
+                  className="h-12 w-auto"
+                />
+              </a>
+            </div>
+          </div>
 
           {/* Desktop navigation */}
           <div className="hidden md:block">
@@ -75,8 +80,9 @@ const Navbar: React.FC = () => {
                   {link.name}
                 </a>
               ))}
-              <button 
-                onClick={() => scrollToSection('#contact')}
+              {/* MODIFIED LINE BELOW */}
+              <button
+                onClick={handleGetStarted} // Changed this to use handleGetStarted
                 className="bg-purple-600 text-white px-5 py-2 rounded-md font-medium hover:bg-purple-700 transition-colors duration-200"
               >
                 Get Started
@@ -117,7 +123,7 @@ const Navbar: React.FC = () => {
                 {link.name}
               </a>
             ))}
-            <button 
+            <button
               onClick={handleGetStarted}
               className="bg-purple-600 text-white px-5 py-2 rounded-md font-medium hover:bg-purple-700 transition-colors duration-200 w-full text-center"
             >

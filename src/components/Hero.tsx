@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
               <span className="text-purple-700">Interested</span> prospects delivered straight to your <span className="text-purple-700">inbox</span>
             </h1>
             <p className="mt-6 text-xl text-gray-700 max-w-2xl">
-              We help B2B companies close more deals by connecting them with high-quality leads.
+              We help B2B companies close 3-6 more deals per month by connecting them with interested leads through our Perpetual Pipeline™ email outbound process.
             </p>
             <div className="mt-8">
               <button
