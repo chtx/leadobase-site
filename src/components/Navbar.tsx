@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
   };
 
   const handleGetStarted = () => {
-    window.location.href = 'https://calendly.com/patrick-px/30min';
+    window.location.href = 'https://cal.com/patrick-p/15min';
     setIsOpen(false); // Also close mobile menu if this is clicked from there
   };
 

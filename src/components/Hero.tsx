@@ -5,7 +5,7 @@ import calendarAnimation from "../assets/calendar.json"; // Adjust path as neede
 
 const Hero: React.FC = () => {
   const handleGetStarted = () => {
-    window.location.href = 'https://calendly.com/patrick-px/30min';
+    window.location.href = 'https://cal.com/patrick-p/15min';
   };
 
   return (
