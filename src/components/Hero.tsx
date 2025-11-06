@@ -1,7 +1,8 @@
-import React from 'react'; // Removed useEffect, useState unless needed for other things
-import Lottie from "lottie-react";
-// Import your animation JSON from the src directory
-import calendarAnimation from "../assets/calendar.json"; // Adjust path as needed
+import React, { Suspense } from 'react';
+import { ClientOnly } from 'vite-react-ssg';
+import calendarAnimation from "../assets/calendar.json";
+
+const Lottie = React.lazy(() => import('lottie-react'));
 
 const Hero: React.FC = () => {
   const handleGetStarted = () => {
@@ -30,15 +31,21 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center items-center p-4 md:p-0"> {/* Added some padding for smaller screens, removed on md+ */}
-  {/* Container for Lottie, controls max-width and margin */}
-  <div className="w-full max-w-md lg:max-w-lg xl:max-w-xl ml-0 md:ml-6 lg:ml-8"> {/* ADJUSTABLE: Max Width and Left Margin */}
-    <Lottie
-      animationData={calendarAnimation} 
-      loop={true}
-      className="w-full h-auto" 
-    />
-  </div>
-</div>
+            {/* Container for Lottie, controls max-width and margin */}
+            <div className="w-full max-w-md lg:max-w-lg xl:max-w-xl ml-0 md:ml-6 lg:ml-8"> {/* ADJUSTABLE: Max Width and Left Margin */}
+              <ClientOnly>
+                {() => (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Lottie
+                      animationData={calendarAnimation}
+                      loop={true}
+                      className="w-full h-auto"
+                    />
+                  </Suspense>
+                )}
+              </ClientOnly>
+            </div>
+          </div>
         </div>
       </div>
     </section>

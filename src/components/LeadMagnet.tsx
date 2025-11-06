@@ -1,7 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async'; // Import Helmet - it's the library I use for embedding the Mailer Lite form. 
-// The issue was that if I just include the MailerLite JS script directly in the <head>, the components weren't loade yet when the script run
-// This library injects script into the head when loading this component, therefore the form div is present for the script to act on. 
+import { Head } from 'vite-react-ssg';
 import leadMagImage from '../assets/mag.png';
 
 // You might not need the global declaration anymore if Helmet handles the script context better,
@@ -17,7 +15,7 @@ const LeadMagnet: React.FC = () => {
 
   return (
     <> {/* Use a Fragment or a parent div if Helmet is the only top-level addition */}
-      <Helmet>
+      <Head>
         <script>
           {`
             (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
@@ -27,7 +25,7 @@ const LeadMagnet: React.FC = () => {
             ml('account', '${mailerLiteAccountID}');
           `}
         </script>
-      </Helmet>
+      </Head>
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-12">
